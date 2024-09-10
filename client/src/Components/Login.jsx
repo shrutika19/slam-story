@@ -2,11 +2,14 @@ import React from 'react'
 import loginLeft from '../assets/loginLeft.jpg'
 import googleLogo from '../assets/googlelogo.png';
 import logo from '../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
+
 
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from '../Shared/firebaseConfig';
 
 function Login() {
+    const navigate = useNavigate();
     console.log("VITE_FIREBASE_APIKEY", import.meta.env.VITE_FIREBASE_APIKEY);
 
     const handleGoogleAuth = async () => {
@@ -14,6 +17,7 @@ function Login() {
         try {
             const result = await signInWithPopup(auth, provider); // Perform Google sign-in
             console.log("User signed in: ", result.user);
+            navigate('/');
         } catch (error) {
             console.error("Error during sign-in:", error);
         }
