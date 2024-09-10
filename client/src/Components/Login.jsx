@@ -1,6 +1,8 @@
 import React from 'react'
 import loginLeft from '../assets/loginLeft.jpg'
 import googleLogo from '../assets/googlelogo.png';
+import logo from '../assets/logo.png';
+
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from '../Shared/firebaseConfig';
 
@@ -31,9 +33,9 @@ function Login() {
 
             <div className="w-full md:w-2/3 bg-white p-8 flex flex-col items-center justify-center">
                 <div className="w-full max-w-md">
-                    <h1 className="text-5xl font-bold mb-8 text-center" style={{ color: '#0C0C0C' }}>
-                        SlamStory
-                    </h1>
+                    <div className="text-5xl font-bold mb-8 text-center" style={{ color: '#0C0C0C' }}>
+                        <img src={logo} alt="Logo" />
+                    </div>
 
                     <label className="text-lg font-semibold text-left" style={{ color: '#442DC7' }}>
                         Email
