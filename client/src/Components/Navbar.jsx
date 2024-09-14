@@ -54,9 +54,70 @@ const Navbar = () => {
                     <a href="#contact" className="text-black font-bold hover:text-gray-500">Contact</a>
                     <button onClick={handleSignOut}>sign out</button>
                 </div>
+                <div className="flex items-center space-x-4 relative">
+                    {/* Icons - Search, Message, Profile, Down Arrow */}
 
-                {/* Right side - Profile Picture */}
-                <div className="flex items-center space-x-4">
+                    {/* Search Icon with Tooltip */}
+                    <div className="group relative">
+                        <FaSearch
+                            className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
+                        />
+                        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black text-white text-xs rounded-md py-1 px-2 pointer-events-none">
+                            Search
+                        </div>
+                    </div>
+
+                    {/* Message Icon with Tooltip */}
+                    <div className="group relative">
+                        <FaCommentDots
+                            className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
+                        />
+                        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black text-white text-xs rounded-md py-1 px-2 pointer-events-none">
+                            Message
+                        </div>
+                    </div>
+
+                    {/* Profile Picture with Tooltip */}
+                    <div className="group relative">
+                        {loggedInUser ? (
+                            <img
+                                src={loggedInUser.photoURL}
+                                alt="Profile"
+                                className="h-6 w-6 rounded-full border-2 border-gray-300 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400"
+                                onClick={handleProfileClick}
+                            />
+                        ) : (
+                            <img
+                                src="path-to-default-profile-picture.jpg"
+                                alt="Default Profile"
+                                className="h-6 w-6 rounded-full border-2 border-gray-300 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400"
+                            />
+                        )}
+                        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black text-white text-xs rounded-md py-1 px-2 pointer-events-none">
+                            My Profile
+                        </div>
+                    </div>
+
+                    {/* Downward Arrow Icon with Tooltip */}
+                    <div className="group relative">
+                        <FaChevronDown
+                            className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
+                        />
+                        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black text-white text-xs rounded-md py-1 px-2 pointer-events-none">
+                            More
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {/* <div className="flex items-center space-x-4">
+                    <FaSearch
+                        className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
+                    />
+                    <FaCommentDots
+                        className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
+                    />
                     {loggedInUser ? (
                         <img
                             src={loggedInUser.photoURL}
@@ -71,18 +132,10 @@ const Navbar = () => {
                             className="h-6 w-6 rounded-full border-2 border-gray-300 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400"
                         />
                     )}
-
-                    {/* Icons - Search, Message, Up Arrow */}
-                    <FaSearch
-                        className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
-                    />
-                    <FaCommentDots
-                        className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
-                    />
                     <FaChevronDown
                         className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
                     />
-                </div>
+                </div> */}
             </div>
         </nav>
     );
