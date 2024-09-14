@@ -1,11 +1,16 @@
 import React from 'react'
 import loginLeft from '../assets/loginLeft.jpg'
 import logo from '../assets/logo.png';
-import GoogleAuth from './GoogleAuth';
+import GoogleAuth from './googleAuth';
+import { useNavigate } from 'react-router-dom';
 
 
 function Login() {
-    console.log("VITE_FIREBASE_APIKEY", import.meta.env.VITE_FIREBASE_APIKEY);
+    const navigate = useNavigate();
+
+    const handleRegisterRedirect = () => {
+        navigate('/register');
+    };
 
     return (
         <div className="flex h-screen">
@@ -38,7 +43,10 @@ function Login() {
                         placeholder="Enter your password"
                     />
                     <div className="text-right mb-6">
-                        <span className="text-sm font-semibold underline cursor-pointer" style={{ color: '#442DC7' }}>
+                        <span className="text-sm font-semibold underline cursor-pointer"
+                            style={{ color: '#442DC7' }}
+                            onClick={handleRegisterRedirect}
+                        >
                             Not registered?
                         </span>
                     </div>
