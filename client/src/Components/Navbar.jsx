@@ -34,6 +34,10 @@ const Navbar = () => {
         //navigate('/myprofile');
     };
 
+    const handleCreateSlam = () => {
+        navigate('/create-slam'); // Redirects to the create-slam page
+    };
+
     useEffect(() => {
         fetchLoggedInUser()
     }, [])
@@ -49,7 +53,7 @@ const Navbar = () => {
 
                 {/* Middle - Navigation Links */}
                 <div className="hidden md:flex space-x-8">
-                    <a href="#home" className="text-black font-bold hover:text-gray-500">Create Slam</a>
+                    <a className="text-black font-bold hover:text-gray-500 cursor-pointer" onClick={handleCreateSlam}>Create Slam</a>
                     <a href="#about" className="text-black font-bold hover:text-gray-500">About</a>
                     <a href="#contact" className="text-black font-bold hover:text-gray-500">Contact</a>
                     <button onClick={handleSignOut}>sign out</button>

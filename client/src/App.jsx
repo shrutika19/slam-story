@@ -6,6 +6,7 @@ import Login from './Components/Login'
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './Pages/Dashboard'
 import Register from './Components/Register'
+import SlamPage from './Pages/SlamPage'
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path='/register' element={<Register />} />
-
+        <Route path='/create-slam' element={<SlamPage />} />
       </Routes>
 
     </>
