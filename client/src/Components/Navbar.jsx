@@ -54,7 +54,7 @@ const Navbar = () => {
                 {/* Middle - Navigation Links */}
                 <div className="hidden md:flex space-x-8">
                     <a className="text-black font-bold hover:text-gray-500 cursor-pointer" onClick={handleCreateSlam}>Create Slam</a>
-                    <a href="#about" className="text-black font-bold hover:text-gray-500">About</a>
+                    <a href="#about" className="text-black font-bold hover:text-gray-500">My Friends</a>
                     <a href="#contact" className="text-black font-bold hover:text-gray-500">Contact</a>
                     <button onClick={handleSignOut}>sign out</button>
                 </div>
