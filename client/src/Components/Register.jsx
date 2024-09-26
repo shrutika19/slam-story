@@ -2,35 +2,66 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import GoogleAuth from './googleAuth';
-import loginLeft from '../assets/loginLeft.jpg'
+import loginLeft from '../assets/loginLeft.jpg';
 
 const Register = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+    const [formData, setFormData] = useState({
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    });
     const [error, setError] = useState('');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+        setFormData(prevData => ({
+            ...prevData,
+            [name]: value, // Update the specific field in formData
+        }));
     };
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
 
-        // Basic validation
         if (formData.password !== formData.confirmPassword) {
             setError("Passwords do not match");
             return;
         }
 
-        // You can add registration logic here (Firebase, custom API, etc.)
+        // Handle registration logic here (e.g., API call)
         console.log('Registration form data:', formData);
 
-        // After successful registration, redirect to login
-        navigate('/');
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstname: formData.firstname,
+                    lastname: formData.lastname,
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Success: Navigate or show success message
+                console.log('Registration successful', data);
+                //navigate('/login'); // Redirect to login or another page
+            } else {
+                // Error: Show error message
+                setError(data.message || 'Registration failed');
+            }
+        } catch (error) {
+            console.error('Error during registration:', error);
+            setError('An error occurred. Please try again later.');
+        }
     };
 
     return (
@@ -60,8 +91,8 @@ const Register = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    name="firstName"
-                                    value={formData.firstName}
+                                    name="firstname" // Updated name
+                                    value={formData.firstname} // Updated value
                                     onChange={handleInputChange}
                                     className="w-full p-3 mt-2 rounded-full bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-442DC7"
                                     placeholder="First Name"
@@ -74,8 +105,8 @@ const Register = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    name="lastName"
-                                    value={formData.lastName}
+                                    name="lastname" // Updated name
+                                    value={formData.lastname} // Updated value
                                     onChange={handleInputChange}
                                     className="w-full p-3 mt-2 rounded-full bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-442DC7"
                                     placeholder="Last Name"
@@ -91,8 +122,8 @@ const Register = () => {
                             </label>
                             <input
                                 type="email"
-                                name="email"
-                                value={formData.email}
+                                name="email" // Updated name
+                                value={formData.email} // Updated value
                                 onChange={handleInputChange}
                                 className="w-full p-3 mt-2 rounded-full bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-442DC7"
                                 placeholder="Email Address"
@@ -108,8 +139,8 @@ const Register = () => {
                                 </label>
                                 <input
                                     type="password"
-                                    name="password"
-                                    value={formData.password}
+                                    name="password" // Updated name
+                                    value={formData.password} // Updated value
                                     onChange={handleInputChange}
                                     className="w-full p-3 mt-2 rounded-full bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-442DC7"
                                     placeholder="Password"
@@ -122,8 +153,8 @@ const Register = () => {
                                 </label>
                                 <input
                                     type="password"
-                                    name="confirmPassword"
-                                    value={formData.confirmPassword}
+                                    name="confirmPassword" // Updated name
+                                    value={formData.confirmPassword} // Updated value
                                     onChange={handleInputChange}
                                     className="w-full p-3 mt-2 rounded-full bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-442DC7"
                                     placeholder="Confirm Password"
@@ -171,7 +202,7 @@ const Register = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Register
+export default Register;
