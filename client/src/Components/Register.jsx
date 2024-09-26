@@ -6,6 +6,8 @@ import loginLeft from '../assets/loginLeft.jpg';
 
 const Register = () => {
     const navigate = useNavigate();
+    const SlamStoryApi = import.meta.env.VITE_SLAM_STORY_API
+
     const [formData, setFormData] = useState({
         firstname: '',
         lastname: '',
@@ -35,7 +37,7 @@ const Register = () => {
         console.log('Registration form data:', formData);
 
         try {
-            const response = await fetch('http://localhost:5000/api/auth/register', {
+            const response = await fetch(`${SlamStoryApi}/api/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
