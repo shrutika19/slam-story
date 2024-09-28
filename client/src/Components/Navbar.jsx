@@ -31,7 +31,7 @@ const Navbar = () => {
     }
 
     const handleProfileClick = () => {
-        //navigate('/myprofile');
+        navigate('/myprofile');
     };
 
     const handleCreateSlam = () => {
@@ -54,7 +54,7 @@ const Navbar = () => {
                 {/* Middle - Navigation Links */}
                 <div className="hidden md:flex space-x-8">
                     <a className="text-black font-bold hover:text-gray-500 cursor-pointer" onClick={handleCreateSlam}>Create Slam</a>
-                    <a href="#about" className="text-black font-bold hover:text-gray-500">My Friends</a>
+                    <a href="#about" className="text-black font-bold hover:text-gray-500">About</a>
                     <a href="#contact" className="text-black font-bold hover:text-gray-500">Contact</a>
                     <button onClick={handleSignOut}>sign out</button>
                 </div>
@@ -82,13 +82,13 @@ const Navbar = () => {
                     </div>
 
                     {/* Profile Picture with Tooltip */}
-                    <div className="group relative">
+                    <div className="group relative" onClick={handleProfileClick}>
                         {loggedInUser ? (
                             <img
                                 src={loggedInUser.photoURL}
                                 alt="Profile"
                                 className="h-6 w-6 rounded-full border-2 border-gray-300 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400"
-                                onClick={handleProfileClick}
+
                             />
                         ) : (
                             <img
@@ -97,7 +97,8 @@ const Navbar = () => {
                                 className="h-6 w-6 rounded-full border-2 border-gray-300 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400"
                             />
                         )}
-                        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black text-white text-xs rounded-md py-1 px-2 pointer-events-none">
+                        <div
+                            className="absolute top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black text-white text-xs rounded-md py-1 px-2 pointer-events-none">
                             My Profile
                         </div>
                     </div>

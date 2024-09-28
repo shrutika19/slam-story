@@ -38,7 +38,7 @@ const RegisterComp = () => {
         // Handle registration logic here (e.g., API call)
         console.log('Registration form data:', formData);
         postRegistrationData(formData)
-
+        navigate('/myprofile');
     };
 
     return (
