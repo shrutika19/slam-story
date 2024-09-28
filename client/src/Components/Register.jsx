@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import GoogleAuth from './googleAuth';
 import loginLeft from '../assets/loginLeft.jpg';
+import { SlamProvider, useSlamContext } from '../Context/SlamContext';
 
-const Register = () => {
+const RegisterComp = () => {
+
+    const { postRegistrationData } = useSlamContext();
+
     const navigate = useNavigate();
-    const SlamStoryApi = import.meta.env.VITE_SLAM_STORY_API
-
     const [formData, setFormData] = useState({
         firstname: '',
         lastname: '',
@@ -35,35 +37,8 @@ const Register = () => {
 
         // Handle registration logic here (e.g., API call)
         console.log('Registration form data:', formData);
+        postRegistrationData(formData)
 
-        try {
-            const response = await fetch(`${SlamStoryApi}/api/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    firstname: formData.firstname,
-                    lastname: formData.lastname,
-                    email: formData.email,
-                    password: formData.password,
-                }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                // Success: Navigate or show success message
-                console.log('Registration successful', data);
-                //navigate('/login'); // Redirect to login or another page
-            } else {
-                // Error: Show error message
-                setError(data.message || 'Registration failed');
-            }
-        } catch (error) {
-            console.error('Error during registration:', error);
-            setError('An error occurred. Please try again later.');
-        }
     };
 
     return (
@@ -205,6 +180,14 @@ const Register = () => {
             </div>
         </div>
     );
+}
+
+const Register = () => {
+    return (
+        <SlamProvider>
+            <RegisterComp />
+        </SlamProvider>
+    )
 }
 
 export default Register;
