@@ -5,8 +5,13 @@ const UserProfile = () => {
         <div className="flex justify-center items-start p-8 bg-gray-200 min-h-screen">
             <div className="flex w-[90%] max-w-6xl h-[90vh]">
                 {/* Left Section - 35% */}
-                <div className="w-[35%] bg-gray-500 shadow-lg rounded-l-lg p-6 flex flex-col justify-between">
-                    {/* Left section content (optional) */}
+                <div className="w-[35%]  shadow-lg rounded-l-lg p-6 flex flex-col justify-between relative">
+                    {/* Left section content with the uploaded image */}
+                    <img
+                        src="https://purepng.com/public/uploads/thumbnail//purepng.com-smiling-mickeymickey-mousemickeymouseanimal-cartooncharacterwalt-disneyub-iwerksstudioslarge-yellow-shoered-shortswhite-glovesnetflix-1701528649382e5sdz.png"
+                        alt="Profile"
+                        className="absolute top-0 left-0 w-full h-full object-cover rounded-l-lg" // Adjust opacity here
+                    />
                 </div>
 
                 {/* Right Section - 65% */}
