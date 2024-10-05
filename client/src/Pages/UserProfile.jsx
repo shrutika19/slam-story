@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 
 const UserProfile = () => {
     const [uploadedImage, setUploadedImage] = useState(null); // State to store uploaded image URL
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [contactNumber, setContactNumber] = useState('');
-    const [dob, setDob] = useState('');
+
+    // Grouped state for form data
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        contactNumber: '',
+        dob: ''
+    });
 
     // Handle image upload
     const handleImageUpload = (event) => {
@@ -20,19 +24,19 @@ const UserProfile = () => {
         }
     };
 
+    // Handle form input changes
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value // Dynamically update the corresponding field in formData
+        });
+    };
+
     // Handle form submission
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent default form submission
-        // Log the form data to the console
-        const formData = {
-            firstName,
-            lastName,
-            email,
-            contactNumber,
-            dob,
-            uploadedImage,
-        };
-        console.log(formData);
+        console.log(formData); // Log all form data to the console
         alert('Form submitted successfully!');
     };
 
@@ -91,9 +95,10 @@ const UserProfile = () => {
                                 <label className="text-lg font-medium text-gray-700">First Name</label>
                                 <input
                                     type="text"
+                                    name="firstName"
+                                    value={formData.firstName}
+                                    onChange={handleInputChange} // Dynamically update form data
                                     className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
-                                    value={firstName}
-                                    onChange={(e) => setFirstName(e.target.value)} // Update state on change
                                     required
                                 />
                             </div>
@@ -103,9 +108,10 @@ const UserProfile = () => {
                                 <label className="text-lg font-medium text-gray-700">Last Name</label>
                                 <input
                                     type="text"
+                                    name="lastName"
+                                    value={formData.lastName}
+                                    onChange={handleInputChange} // Dynamically update form data
                                     className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
-                                    value={lastName}
-                                    onChange={(e) => setLastName(e.target.value)} // Update state on change
                                     required
                                 />
                             </div>
@@ -118,9 +124,10 @@ const UserProfile = () => {
                                 <label className="text-lg font-medium text-gray-700">Email Address</label>
                                 <input
                                     type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange} // Dynamically update form data
                                     className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)} // Update state on change
                                     required
                                 />
                             </div>
@@ -130,9 +137,10 @@ const UserProfile = () => {
                                 <label className="text-lg font-medium text-gray-700">Contact No.</label>
                                 <input
                                     type="tel"
+                                    name="contactNumber"
+                                    value={formData.contactNumber}
+                                    onChange={handleInputChange} // Dynamically update form data
                                     className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
-                                    value={contactNumber}
-                                    onChange={(e) => setContactNumber(e.target.value)} // Update state on change
                                     required
                                 />
                             </div>
@@ -143,9 +151,10 @@ const UserProfile = () => {
                             <label className="text-lg font-medium text-gray-700">Date of Birth</label>
                             <input
                                 type="date"
+                                name="dob"
+                                value={formData.dob}
+                                onChange={handleInputChange} // Dynamically update form data
                                 className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm w-full focus:outline-none focus:ring focus:ring-indigo-200"
-                                value={dob}
-                                onChange={(e) => setDob(e.target.value)} // Update state on change
                                 required
                             />
                         </div>
