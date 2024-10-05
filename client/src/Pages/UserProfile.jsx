@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 
 const UserProfile = () => {
     const [uploadedImage, setUploadedImage] = useState(null); // State to store uploaded image URL
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
+    const [dob, setDob] = useState('');
 
     // Handle image upload
     const handleImageUpload = (event) => {
@@ -13,6 +18,22 @@ const UserProfile = () => {
             };
             reader.readAsDataURL(file); // Read the file as a data URL
         }
+    };
+
+    // Handle form submission
+    const handleSubmit = (event) => {
+        event.preventDefault(); // Prevent default form submission
+        // Log the form data to the console
+        const formData = {
+            firstName,
+            lastName,
+            email,
+            contactNumber,
+            dob,
+            uploadedImage,
+        };
+        console.log(formData);
+        alert('Form submitted successfully!');
     };
 
     return (
@@ -33,34 +54,112 @@ const UserProfile = () => {
                     {/* Heading */}
                     <h1 className="text-3xl font-bold text-black mb-6 text-center">Change Your Profile</h1>
 
-                    <div className="flex items-center space-x-10">
-                        {/* Left - Round Image */}
-                        <div className="relative">
-                            <img
-                                src={uploadedImage || "https://purepng.com/public/uploads/thumbnail//purepng.com-smiling-mickeymickey-mousemickeymouseanimal-cartooncharacterwalt-disneyub-iwerksstudioslarge-yellow-shoered-shortswhite-glovesnetflix-1701528649382e5sdz.png"} // Default image if no upload
-                                alt="Profile"
-                                className="w-36 h-36 rounded-full object-cover shadow-lg border-4 border-gray-200"
+                    <form onSubmit={handleSubmit}>
+                        <div className="flex items-center space-x-10">
+                            {/* Left - Round Image */}
+                            <div className="relative">
+                                <img
+                                    src={uploadedImage || "https://purepng.com/public/uploads/thumbnail//purepng.com-smiling-mickeymickey-mousemickeymouseanimal-cartooncharacterwalt-disneyub-iwerksstudioslarge-yellow-shoered-shortswhite-glovesnetflix-1701528649382e5sdz.png"} // Default image if no upload
+                                    alt="Profile"
+                                    className="w-36 h-36 rounded-full object-cover shadow-lg border-4 border-gray-200"
+                                />
+                            </div>
+
+                            {/* Right - Upload Photo Label and Button */}
+                            <div className="flex flex-col space-y-6">
+                                <label className="text-xl font-semibold text-gray-700">Profile Picture</label>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageUpload} // Call the function on change
+                                    className="hidden" // Hide the default file input
+                                    id="file-upload"
+                                />
+                                <label
+                                    htmlFor="file-upload"
+                                    className="cursor-pointer px-6 py-2 border border-indigo-600 text-indigo-600 font-medium rounded-md shadow hover:bg-indigo-600 hover:text-white transition duration-300"
+                                >
+                                    Upload New Photo
+                                </label>
+                            </div>
+                        </div>
+
+                        {/* First Name and Last Name in the same row */}
+                        <div className="flex space-x-6 mt-6">
+                            {/* First Name */}
+                            <div className="flex-1 flex flex-col">
+                                <label className="text-lg font-medium text-gray-700">First Name</label>
+                                <input
+                                    type="text"
+                                    className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)} // Update state on change
+                                    required
+                                />
+                            </div>
+
+                            {/* Last Name */}
+                            <div className="flex-1 flex flex-col">
+                                <label className="text-lg font-medium text-gray-700">Last Name</label>
+                                <input
+                                    type="text"
+                                    className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)} // Update state on change
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        {/* Email, Contact No, and DOB in the same row */}
+                        <div className="flex space-x-6 mt-6">
+                            {/* Email Address */}
+                            <div className="flex-1 flex flex-col">
+                                <label className="text-lg font-medium text-gray-700">Email Address</label>
+                                <input
+                                    type="email"
+                                    className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)} // Update state on change
+                                    required
+                                />
+                            </div>
+
+                            {/* Contact Number */}
+                            <div className="flex-1 flex flex-col">
+                                <label className="text-lg font-medium text-gray-700">Contact No.</label>
+                                <input
+                                    type="tel"
+                                    className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
+                                    value={contactNumber}
+                                    onChange={(e) => setContactNumber(e.target.value)} // Update state on change
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        {/* Date of Birth Field */}
+                        <div className="mt-6">
+                            <label className="text-lg font-medium text-gray-700">Date of Birth</label>
+                            <input
+                                type="date"
+                                className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm w-full focus:outline-none focus:ring focus:ring-indigo-200"
+                                value={dob}
+                                onChange={(e) => setDob(e.target.value)} // Update state on change
+                                required
                             />
                         </div>
 
-                        {/* Right - Upload Photo Label and Button */}
-                        <div className="flex flex-col space-y-3">
-                            <label className="text-xl font-semibold text-gray-700">Profile Picture</label>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleImageUpload} // Call the function on change
-                                className="hidden" // Hide the default file input
-                                id="file-upload"
-                            />
-                            <label
-                                htmlFor="file-upload"
-                                className="cursor-pointer px-6 py-2 border border-indigo-600 text-indigo-600 font-medium rounded-md shadow hover:bg-indigo-600 hover:text-white transition duration-300"
+                        {/* Submit Button */}
+                        <div className="mt-8 flex justify-center">
+                            <button
+                                type="submit"
+                                className="px-8 py-1 bg-indigo-600  text-white font-semibold rounded-md shadow hover:bg-indigo-700 transition duration-300"
                             >
-                                Upload New Photo
-                            </label>
+                                Submit
+                            </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
