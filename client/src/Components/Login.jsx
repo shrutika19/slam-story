@@ -1,4 +1,5 @@
-import React from 'react'
+
+import React, { useState } from 'react'
 import loginLeft from '../assets/loginLeft.jpg'
 import logo from '../assets/logo.png';
 import GoogleAuth from './googleAuth';
@@ -7,9 +8,21 @@ import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
 
     const handleRegisterRedirect = () => {
         navigate('/register');
+    };
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        console.log("Submit button")
+        console.log("JSON.stringify({ email, password })", JSON.stringify({ email, password }))
+
+
     };
 
     return (
@@ -32,6 +45,9 @@ function Login() {
                         type="email"
                         className="w-full p-4 mt-2 mb-6 rounded-full bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-442DC7"
                         placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
                     />
                     <label className="text-lg font-semibold text-left" style={{ color: '#442DC7' }}>
                         Password
@@ -41,6 +57,9 @@ function Login() {
                         type="password"
                         className="w-full p-4 mt-2 mb-2 rounded-full bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-442DC7"
                         placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                     <div className="text-right mb-6">
                         <span className="text-sm font-semibold underline cursor-pointer"
@@ -55,6 +74,7 @@ function Login() {
                     <button
                         className="w-full p-4 rounded-full text-white font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-442DC7"
                         style={{ backgroundColor: '#442DC7' }}
+                        onClick={handleLogin}
                     >
                         Login
                     </button>
