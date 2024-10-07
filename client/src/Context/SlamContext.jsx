@@ -29,11 +29,8 @@ export const SlamProvider = ({ children }) => {
             console.log("Resdata")
 
             if (response.ok) {
-                // Success: Navigate or show success message
                 console.log('Registration successful');
-                //navigate('/login'); // Redirect to login or another page
             } else {
-                // Error: Show error message
                 console.log('Registration failed');
             }
         } catch (error) {
@@ -43,10 +40,43 @@ export const SlamProvider = ({ children }) => {
         }
     }
 
+    const postLoginData = async (data) => {
+        console.log("LoginData", data.email);
+        try {
+            const response = await fetch(`${SlamStoryApi}/api/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: data.email,
+                    password: data.password,
+                }),
+            });
+
+            const responseData = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('token', responseData.token);
+                console.log('Login successful');
+                return responseData;
+            } else {
+                const errorMessage = responseData.message || 'Login failed. Please check your credentials.';
+                console.log(errorMessage);
+                throw new Error(errorMessage); // Throw error to be caught in the calling function
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            throw error; // Re-throw the error for further handling
+        }
+    };
+
+
     return (
         <SlamContext.Provider
             value={{
-                postRegistrationData
+                postRegistrationData,
+                postLoginData
             }}
         >
             {children}
