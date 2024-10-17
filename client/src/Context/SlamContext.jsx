@@ -71,12 +71,37 @@ export const SlamProvider = ({ children }) => {
         }
     };
 
+    const postRegisterGoogleAuth = async (user, token) => {
+        try {
+            const response = await fetch(`${SlamStoryApi}/api/auth/google-register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,  // Send token for verification
+                },
+                body: JSON.stringify({
+                    firstname: user.displayName.split(' ')[0],
+                    lastname: user.displayName.split(' ')[1] || '',
+                    email: user.email,
+                }),
+            });
+
+            if (response.ok) {
+                console.log('Google registration successful');
+            } else {
+                console.error('Google registration failed');
+            }
+        } catch (error) {
+            console.error("Error during Google registration:", error);
+        }
+    };
 
     return (
         <SlamContext.Provider
             value={{
                 postRegistrationData,
-                postLoginData
+                postLoginData,
+                postRegisterGoogleAuth
             }}
         >
             {children}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
-import GoogleAuth from './googleAuth';
+import GoogleAuth from './GoogleAuth';
 import loginLeft from '../assets/loginLeft.jpg';
 import { SlamProvider, useSlamContext } from '../Context/SlamContext';
 
