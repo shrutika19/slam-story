@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const admin = require('../config/firebaseAdmin')
 
 // Register new user
 const registerUser = async (req, res) => {
@@ -36,7 +37,6 @@ const registerUser = async (req, res) => {
 };
 
 //login user
-// login user
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
@@ -63,5 +63,27 @@ const loginUser = async (req, res) => {
     }
 };
 
+//google registration
+const googleRegister = async (req, res) => {
+    const { firstname, lastname, email } = req.body;
 
-module.exports = { registerUser, loginUser };
+    try {
+        // Check if the user already exists
+        let user = await User.findOne({ email });
+        if (!user) {
+            user = new User({ firstname, lastname, email });
+            await user.save();
+        }
+
+        // Generate a token (if needed)
+        const token = await admin.auth().createCustomToken(user._id.toString());
+
+        res.status(201).json({ token });
+    } catch (error) {
+        console.error("Google Register Error:", error);
+        res.status(500).json({ message: "Server error during Google registration" });
+    }
+};
+
+
+module.exports = { registerUser, loginUser, googleRegister };
