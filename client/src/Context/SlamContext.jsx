@@ -97,12 +97,51 @@ export const SlamProvider = ({ children }) => {
         }
     };
 
+    // Update profile context function
+    const postProfileUpdate = async (data) => {
+        console.log("postProfileUpdate", data.email);
+
+        try {
+            const token = localStorage.getItem('token'); // Retrieve token from local storage
+
+            const response = await fetch(`${SlamStoryApi}/api/auth/update-profile`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, // Attach the token for authentication
+                },
+                body: JSON.stringify({
+                    firstname: data.firstname,
+                    lastname: data.lastname,
+                    email: data.email,
+                    contact: data.contact,
+                    dateOfBirth: data.dateOfBirth,
+                }),
+            });
+
+            const responseData = await response.json();
+
+            if (response.ok) {
+                console.log('Profile updated successfully:', responseData);
+                return responseData;
+                // Optionally update local state with the new profile info or notify the user
+            } else {
+                console.log('Profile update failed:', responseData.message);
+            }
+        } catch (error) {
+            console.error('Error during profile update:', error);
+            console.log('An error occurred. Please try again later.');
+        }
+    };
+
+
     return (
         <SlamContext.Provider
             value={{
                 postRegistrationData,
                 postLoginData,
-                postRegisterGoogleAuth
+                postRegisterGoogleAuth,
+                postProfileUpdate
             }}
         >
             {children}

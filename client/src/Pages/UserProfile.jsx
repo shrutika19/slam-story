@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { SlamProvider, useSlamContext } from '../Context/SlamContext';
 
-const UserProfile = () => {
+const UserProfileComp = () => {
     const [uploadedImage, setUploadedImage] = useState(null); // State to store uploaded image URL
+
+    const { postProfileUpdate } = useSlamContext();
 
     // Grouped state for form data
     const [formData, setFormData] = useState({
@@ -34,10 +37,17 @@ const UserProfile = () => {
     };
 
     // Handle form submission
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent default form submission
         console.log(formData); // Log all form data to the console
-        alert('Form submitted successfully!');
+        try {
+            const responseData = await postProfileUpdate(formData)
+            if (responseData) {
+                alert('Success')
+            }
+        } catch (error) {
+            console.log("Update failed", error.message)
+        }
     };
 
     return (
@@ -175,4 +185,12 @@ const UserProfile = () => {
     );
 };
 
+
+const UserProfile = () => {
+    return (
+        <SlamProvider>
+            <UserProfileComp />
+        </SlamProvider>
+    )
+}
 export default UserProfile;

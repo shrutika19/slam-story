@@ -109,4 +109,4 @@ const updateUserProfile = async (req, res) => {
 
 
 
-module.exports = { registerUser, loginUser, googleRegister };
+module.exports = { registerUser, loginUser, googleRegister, updateUserProfile };
