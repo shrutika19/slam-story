@@ -25,10 +25,20 @@ function LoginComp() {
         console.log("Submit button");
         console.log("JSON.stringify({ email, password })", formData); // Log formData without empty keys
 
-        postLoginData(formData);
+        try {
+            const responseData = await postLoginData(formData);
 
-        // navigate('/');
+            if (responseData) {
+                // Only navigate if login was successful
+                navigate('/');
+            }
+        } catch (error) {
+            console.error('Login failed:', error.message); // Log any error that occurs
+            // Optionally, show an error message to the user here
+        }
     };
+
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
