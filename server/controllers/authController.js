@@ -83,6 +83,30 @@ const googleRegister = async (req, res) => {
 
 };
 
+//my profile update
+const updateUserProfile = async (req, res) => {
+    const { firstname, lastname, email, contact, dateOfBirth } = req.body;
+    const userId = req.user.id; // Assuming user ID is obtained from authentication middleware
+
+    try {
+        // Find user by ID and update their profile
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { firstname, lastname, email, contact, dateOfBirth },
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Profile updated successfully', user: updatedUser });
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        res.status(500).json({ message: 'Server error during profile update' });
+    }
+};
+
 
 
 module.exports = { registerUser, loginUser, googleRegister };
