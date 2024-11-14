@@ -68,22 +68,21 @@ const googleRegister = async (req, res) => {
     const { firstname, lastname, email } = req.body;
 
     try {
-        // Check if the user already exists
         let user = await User.findOne({ email });
         if (!user) {
             user = new User({ firstname, lastname, email });
             await user.save();
         }
 
-        // Generate a token (if needed)
         const token = await admin.auth().createCustomToken(user._id.toString());
-
         res.status(201).json({ token });
     } catch (error) {
-        console.error("Google Register Error:", error);
+        console.error("Google Register Error:", error.message, error.stack); // Show more details
         res.status(500).json({ message: "Server error during Google registration" });
     }
+
 };
+
 
 
 module.exports = { registerUser, loginUser, googleRegister };

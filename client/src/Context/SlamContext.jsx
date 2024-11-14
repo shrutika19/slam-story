@@ -71,6 +71,7 @@ export const SlamProvider = ({ children }) => {
         }
     };
 
+
     const postRegisterGoogleAuth = async (user, token) => {
         try {
             const response = await fetch(`${SlamStoryApi}/api/auth/google-register`, {

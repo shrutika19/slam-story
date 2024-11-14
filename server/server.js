@@ -9,23 +9,28 @@ const app = express();
 connectDB();
 
 const corsOptions = {
-    origin: 'http://localhost:5173', // Replace with your frontend URL
+    origin: 'http://localhost:5173', // Ensure this matches your frontend URL exactly
     credentials: true,
     exposedHeaders: ['Cross-Origin-Opener-Policy'],
 };
+
 
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
 
+console.log("/api/auth', authRoutes", authRoutes)
+
 // Routes
 app.use('/api/auth', authRoutes);
 // Add COOP headers
+
 app.use((req, res, next) => {
-    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-    res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups'); // Adjusting policy
+    res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp'); // You may also try commenting this out to debug
     next();
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
