@@ -29,6 +29,7 @@ const registerUser = async (req, res) => {
 
         // Create JWT token
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        console.log("Register token", token)
 
         res.status(201).json({ token });
     } catch (error) {
@@ -54,6 +55,7 @@ const loginUser = async (req, res) => {
         }
 
         // Create and return JWT token
+
         const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.status(200).json({ token });
 
@@ -85,8 +87,20 @@ const googleRegister = async (req, res) => {
 
 //my profile update
 const updateUserProfile = async (req, res) => {
+    console.log("req.body", req.body)
     const { firstname, lastname, email, contact, dateOfBirth } = req.body;
-    const userId = req.user.id; // Assuming user ID is obtained from authentication middleware
+    const userId = req.user?.id;
+    console.log("Extracted userId:", userId);
+
+    if (!userId) {
+        return res.status(403).json({ message: 'Unauthorized: User ID missing' });
+    }
+
+
+    if (!firstname || !lastname || !email) {
+        return res.status(400).json({ message: 'First name, last name, and email are required.' });
+    }
+
 
     try {
         // Find user by ID and update their profile

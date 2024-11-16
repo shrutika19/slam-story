@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
     firstname: { type: String, required: true },
@@ -8,5 +9,7 @@ const userSchema = new mongoose.Schema({
     contact: { type: String },          // Optional field for contact number
     dateOfBirth: { type: Date },         // Optional field for date of birth
 });
+
+
 
 module.exports = mongoose.model('User', userSchema);
