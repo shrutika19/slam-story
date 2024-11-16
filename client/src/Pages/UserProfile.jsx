@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { SlamProvider, useSlamContext } from '../Context/SlamContext';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfileComp = () => {
     const [uploadedImage, setUploadedImage] = useState(null); // State to store uploaded image URL
+    const navigate = useNavigate();
 
     const { postProfileUpdate } = useSlamContext();
 
     // Grouped state for form data
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         email: '',
-        contactNumber: '',
-        dob: ''
+        contact: '',
+        dateOfBirth: ''
     });
 
     // Handle image upload
@@ -43,7 +45,7 @@ const UserProfileComp = () => {
         try {
             const responseData = await postProfileUpdate(formData)
             if (responseData) {
-                alert('Success')
+                navigate('/');
             }
         } catch (error) {
             console.log("Update failed", error.message)
@@ -105,8 +107,8 @@ const UserProfileComp = () => {
                                 <label className="text-lg font-medium text-gray-700">First Name</label>
                                 <input
                                     type="text"
-                                    name="firstName"
-                                    value={formData.firstName}
+                                    name="firstname"
+                                    value={formData.firstname}
                                     onChange={handleInputChange} // Dynamically update form data
                                     className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
                                     required
@@ -118,8 +120,8 @@ const UserProfileComp = () => {
                                 <label className="text-lg font-medium text-gray-700">Last Name</label>
                                 <input
                                     type="text"
-                                    name="lastName"
-                                    value={formData.lastName}
+                                    name="lastname"
+                                    value={formData.lastname}
                                     onChange={handleInputChange} // Dynamically update form data
                                     className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
                                     required
@@ -147,8 +149,8 @@ const UserProfileComp = () => {
                                 <label className="text-lg font-medium text-gray-700">Contact No.</label>
                                 <input
                                     type="tel"
-                                    name="contactNumber"
-                                    value={formData.contactNumber}
+                                    name="contact"
+                                    value={formData.contact}
                                     onChange={handleInputChange} // Dynamically update form data
                                     className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
                                     required
@@ -161,8 +163,8 @@ const UserProfileComp = () => {
                             <label className="text-lg font-medium text-gray-700">Date of Birth</label>
                             <input
                                 type="date"
-                                name="dob"
-                                value={formData.dob}
+                                name="dateOfBirth"
+                                value={formData.dateOfBirth}
                                 onChange={handleInputChange} // Dynamically update form data
                                 className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm w-full focus:outline-none focus:ring focus:ring-indigo-200"
                                 required

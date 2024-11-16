@@ -99,10 +99,11 @@ export const SlamProvider = ({ children }) => {
 
     // Update profile context function
     const postProfileUpdate = async (data) => {
-        console.log("postProfileUpdate", data.email);
+        console.log("postProfileUpdate", data);
 
         try {
             const token = localStorage.getItem('token'); // Retrieve token from local storage
+            console.log("tokane", token)
 
             const response = await fetch(`${SlamStoryApi}/api/auth/update-profile`, {
                 method: 'POST',
