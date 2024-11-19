@@ -135,6 +135,49 @@ export const SlamProvider = ({ children }) => {
         }
     };
 
+    const postSlamData = async (data) => {
+        console.log("postSlamData", data);
+        try {
+            const token = localStorage.getItem('token'); // Retrieve token from local storage
+            console.log("tokane", token)
+
+            const response = await fetch(`${SlamStoryApi}/api/auth/update-slam`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, // Attach the token for authentication
+                },
+                body: JSON.stringify({
+                    fullname: data.fullname,
+                    contact: data.contact,
+                    dateOfBirth: data.dateOfBirth,
+                    favColor: data.favColor,
+                    favFood: data.favFood,
+                    favSong: data.favSong,
+                    favMovie: data.favMovie,
+                    favWebseries: data.favWebseries,
+                    favCafe: data.favCafe,
+                    favHobby: data.favHobby,
+                    funfact: data.funfact,
+                    memory: data.memory,
+                    message: data.message
+                }),
+            });
+
+            const responseData = await response.json();
+
+            if (response.ok) {
+                console.log('Slam created successfully:', responseData);
+                return responseData;
+                // Optionally update local state with the new profile info or notify the user
+            } else {
+                console.log('Slam update failed:', responseData.message);
+            }
+        } catch (error) {
+            console.error('Error during profile update:', error);
+            console.log('An error occurred. Please try again later.');
+        }
+    }
 
     return (
         <SlamContext.Provider
@@ -142,7 +185,8 @@ export const SlamProvider = ({ children }) => {
                 postRegistrationData,
                 postLoginData,
                 postRegisterGoogleAuth,
-                postProfileUpdate
+                postProfileUpdate,
+                postSlamData
             }}
         >
             {children}
