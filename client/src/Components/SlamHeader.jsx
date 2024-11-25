@@ -2,7 +2,7 @@ import React from 'react';
 import kids from '../assets/kids.png';
 import banner from '../assets/banner.png';
 
-const SlamHeader = () => {
+const SlamHeader = ({ onFieldChange }) => {
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
         console.log(file);
@@ -25,7 +25,7 @@ const SlamHeader = () => {
                         </div>
                         {/* "All About Me" Text */}
                         <div className="w-2/3">
-                            <h1 className="text-custom-heading text-5xl text-left font-bold ml-6">All About Me</h1>
+                            <h1 className="text-custom-heading text-5xl text-center font-bold ml-6">All About Me</h1>
                         </div>
                     </div>
 
@@ -37,6 +37,7 @@ const SlamHeader = () => {
                                 type="text"
                                 placeholder="Enter your name"
                                 className="w-full p-3 border border-gray-300 rounded-md"
+                                onChange={(e) => onFieldChange("fullname", e.target.value)}
                             />
                         </div>
                         <div>
@@ -45,6 +46,7 @@ const SlamHeader = () => {
                                 type="text"
                                 placeholder="Enter your contact number"
                                 className="w-full p-3 border border-gray-300 rounded-md"
+                                onChange={(e) => onFieldChange("contact", e.target.value)}
                             />
                         </div>
                         <div>
@@ -52,6 +54,7 @@ const SlamHeader = () => {
                             <input
                                 type="date"
                                 className="w-full p-3 border border-gray-300 rounded-md"
+                                onChange={(e) => onFieldChange("dateOfBirth", e.target.value)}
                             />
                         </div>
                     </div>

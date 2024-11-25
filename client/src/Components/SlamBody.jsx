@@ -1,61 +1,17 @@
 import React, { useState } from 'react';
-import ActionButtons from './ActionButtons';
 
-const SlamBody = () => {
-    // State for each input field
-    const [fields, setFields] = useState({
-        color: '',
-        food: '',
-        song: '',
-        movie: '',
-        webSeries: '',
-        cafeRestaurant: '',
-        hobby: '',
-    });
-
-    // State for additional text areas
-    const [textAreas, setTextAreas] = useState({
-        funFact: '',
-        funniestMemory: '',
-        messageForMe: '', // Added state for the new text area
-    });
-
-    // Handler for input changes
-    const handleInputChange = (e) => {
-        const { id, value } = e.target;
-        setFields((prevFields) => ({
-            ...prevFields,
-            [id]: value,
-        }));
-    };
-
-    // Handler for text area changes
-    const handleTextAreaChange = (e) => {
-        const { id, value } = e.target;
-        setTextAreas((prevTextAreas) => ({
-            ...prevTextAreas,
-            [id]: value,
-        }));
-    };
+const SlamBody = ({ onFieldChange }) => {
 
     // List of fields with their labels
     const fieldList = [
-        { id: 'color', label: 'Color' },
-        { id: 'food', label: 'Food' },
-        { id: 'song', label: 'Song' },
-        { id: 'movie', label: 'Movie' },
-        { id: 'webSeries', label: 'Web Series' },
-        { id: 'cafeRestaurant', label: 'Cafe/Restaurant' },
-        { id: 'hobby', label: 'Hobby' },
+        { id: 'favColor', label: 'Color' },
+        { id: 'favFood', label: 'Food' },
+        { id: 'favSong', label: 'Song' },
+        { id: 'favMovie', label: 'Movie' },
+        { id: 'favWebseries', label: 'Web Series' },
+        { id: 'favCafe', label: 'Cafe/Restaurant' },
+        { id: 'favHobby', label: 'Hobby' },
     ];
-
-    const handleSave = () => {
-        console.log('Saved Data:', { ...fields, ...textAreas });
-    };
-
-    const handleSubmit = () => {
-        console.log('Submitted Data:', { ...fields, ...textAreas });
-    };
 
     return (
         <>
@@ -73,8 +29,7 @@ const SlamBody = () => {
                             <input
                                 type="text"
                                 id={field.id}
-                                value={fields[field.id]}
-                                onChange={handleInputChange}
+                                onChange={(e) => onFieldChange(field.id, e.target.value)}
                                 className="border p-2 rounded w-full"
                                 placeholder={`Enter ${field.label.toLowerCase()}`}
                             />
@@ -90,9 +45,8 @@ const SlamBody = () => {
                             Fun Fact About Me:
                         </label>
                         <textarea
-                            id="funFact"
-                            value={textAreas.funFact}
-                            onChange={handleTextAreaChange}
+                            id="funfact"
+                            onChange={(e) => onFieldChange("funfact", e.target.value)}
                             className="border p-2 rounded w-full"
                             rows="4"
                             placeholder="Share a fun fact about yourself"
@@ -105,9 +59,8 @@ const SlamBody = () => {
                             Funniest Memory Together:
                         </label>
                         <textarea
-                            id="funniestMemory"
-                            value={textAreas.funniestMemory}
-                            onChange={handleTextAreaChange}
+                            id="memory"
+                            onChange={(e) => onFieldChange("memory", e.target.value)}
                             className="border p-2 rounded w-full"
                             rows="4"
                             placeholder="Share your funniest memory together"
@@ -120,9 +73,8 @@ const SlamBody = () => {
                             Message for Me:
                         </label>
                         <textarea
-                            id="messageForMe"
-                            value={textAreas.messageForMe}
-                            onChange={handleTextAreaChange}
+                            id="message"
+                            onChange={(e) => onFieldChange("message", e.target.value)}
                             className="border p-2 rounded w-full"
                             rows="4"
                             placeholder="Write a message for me"
@@ -134,7 +86,6 @@ const SlamBody = () => {
 
 
             </div>
-            <ActionButtons onSave={handleSave} onSubmit={handleSubmit} />
         </>
 
     );
