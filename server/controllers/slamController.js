@@ -64,4 +64,28 @@ const postSlamUser = async (req, res) => {
     }
 }
 
-module.exports = postSlamUser;
+// Function to fetch a Slam entry by ID
+const getSlamUserByid = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Fetch the Slam entry by ID
+        const slamData = await Slam.findById(id);
+
+        if (!slamData) {
+            return res.status(404).json({ message: 'Slam entry not found' });
+        }
+
+        // Respond with the fetched Slam entry
+        res.status(200).json({
+            message: 'Slam entry fetched successfully',
+            data: slamData,
+        });
+
+    } catch (error) {
+        console.error("Error fetching Slam entry:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+module.exports = { postSlamUser, getSlamUserByid };
