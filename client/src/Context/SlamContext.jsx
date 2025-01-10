@@ -9,6 +9,8 @@ export function useSlam() {
 export const SlamProvider = ({ children }) => {
     const SlamStoryApi = import.meta.env.VITE_SLAM_STORY_API
 
+    const [slamDataById, setslamDataById] = useState({});
+
     const postRegistrationData = async (data) => {
         console.log("postRegistrationData", data.email)
         try {
@@ -179,6 +181,43 @@ export const SlamProvider = ({ children }) => {
         }
     }
 
+    const getSlamDataById = async (id) => {
+        console.log("getSlamDataById called with id:", id);
+
+        try {
+            const token = localStorage.getItem('token'); // Retrieve token from local storage
+            if (!token) {
+                console.error("Token not found in local storage");
+                return;
+            }
+
+            // Correctly interpolate the `id` in the URL
+            const response = await fetch(`${SlamStoryApi}/api/auth/slam/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, // Attach the token for authentication
+                },
+            });
+
+            // Check if the response is successful
+            if (!response.ok) {
+                console.error(`Failed to fetch slam data. Status: ${response.status}`);
+                return;
+            }
+
+            // Parse the JSON response
+            const data = await response.json();
+            setslamDataById(data)
+            console.log("Slam data retrieved:", data);
+
+            return data; // Return the data for further use
+        } catch (error) {
+            console.error("Error fetching slam data by ID:", error);
+        }
+    };
+
+
     return (
         <SlamContext.Provider
             value={{
@@ -186,7 +225,8 @@ export const SlamProvider = ({ children }) => {
                 postLoginData,
                 postRegisterGoogleAuth,
                 postProfileUpdate,
-                postSlamData
+                postSlamData,
+                getSlamDataById, slamDataById
             }}
         >
             {children}
