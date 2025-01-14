@@ -64,6 +64,29 @@ const postSlamUser = async (req, res) => {
     }
 }
 
+// Function to fetch all Slam entries
+const getAllSlams = async (req, res) => {
+    try {
+        // Fetch all Slam entries from the database
+        const slams = await Slam.find();
+
+        // Check if there are any Slam entries
+        if (slams.length === 0) {
+            return res.status(404).json({ message: "No Slam entries found" });
+        }
+
+        // Respond with the list of Slam entries
+        res.status(200).json({
+            message: "All Slam entries fetched successfully",
+            data: slams,
+        });
+    } catch (error) {
+        console.error("Error fetching Slam entries:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+
 // Function to fetch a Slam entry by ID
 const getSlamUserByid = async (req, res) => {
     const { id } = req.params;
@@ -88,4 +111,4 @@ const getSlamUserByid = async (req, res) => {
     }
 }
 
-module.exports = { postSlamUser, getSlamUserByid };
+module.exports = { postSlamUser, getSlamUserByid, getAllSlams };

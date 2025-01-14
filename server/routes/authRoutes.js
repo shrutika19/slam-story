@@ -1,7 +1,7 @@
 const express = require('express');
 const { registerUser, loginUser, googleRegister, updateUserProfile } = require('../controllers/authController');
 const authMiddleware = require('../middleware/authMiddleware');
-const { postSlamUser, getSlamUserByid } = require('../controllers/slamController');
+const { postSlamUser, getSlamUserByid, getAllSlams } = require('../controllers/slamController');
 
 const router = express.Router();
 
@@ -13,5 +13,6 @@ router.post('/update-slam', postSlamUser)
 
 // GET route to fetch Slam entry by ID
 router.get('/slam/:id', getSlamUserByid);
+router.get('/slams', getAllSlams);
 
 module.exports = router;
