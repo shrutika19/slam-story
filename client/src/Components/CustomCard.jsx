@@ -26,7 +26,7 @@ const CustomCard = ({ image, name, contact, birthdate }) => {
                 </p>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default CustomCard
