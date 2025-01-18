@@ -10,6 +10,8 @@ export const SlamProvider = ({ children }) => {
     const SlamStoryApi = import.meta.env.VITE_SLAM_STORY_API
 
     const [slamDataById, setslamDataById] = useState({});
+    const [allSlams, setAllSlams] = useState([]);
+
 
     const postRegistrationData = async (data) => {
         console.log("postRegistrationData", data.email)
@@ -217,6 +219,34 @@ export const SlamProvider = ({ children }) => {
         }
     };
 
+    const getAllSlamsData = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error("Token not found in local storage");
+                return;
+            }
+
+            const response = await fetch(`${SlamStoryApi}/api/auth/slams`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                console.error(`Failed to fetch slam data. Status: ${response.status}`);
+                return;
+            }
+
+            const data = await response.json();
+            setAllSlams(data.data);
+            console.log("Fetched slams:", data);
+        } catch (error) {
+            console.error("Error fetching slam data:", error);
+        }
+    };
 
     return (
         <SlamContext.Provider
@@ -226,7 +256,8 @@ export const SlamProvider = ({ children }) => {
                 postRegisterGoogleAuth,
                 postProfileUpdate,
                 postSlamData,
-                getSlamDataById, slamDataById
+                getSlamDataById, slamDataById,
+                getAllSlamsData, allSlams
             }}
         >
             {children}
