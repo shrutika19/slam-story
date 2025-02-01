@@ -8,6 +8,7 @@ import Dashboard from './Pages/Dashboard'
 import Register from './Components/Register'
 import SlamPage from './Pages/SlamPage'
 import UserProfile from './Pages/UserProfile'
+import SlamDetails from './Pages/SlamDetails'
 
 
 function App() {
@@ -18,9 +19,9 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Route path='create-slam' element={<SlamPage />} />
-        <Route path='myprofile' element={<UserProfile />} />
-
+        <Route path='/create-slam' element={<SlamPage />} />
+        <Route path='/myprofile' element={<UserProfile />} />
+        <Route path="/slam/:id" element={<SlamDetails />} />
       </Routes>
 
     </>
