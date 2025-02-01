@@ -1,8 +1,10 @@
 import React from 'react'
 
-const CustomCard = ({ image, name, contact, birthdate }) => {
+const CustomCard = ({ id, image, name, contact, birthdate, onClick }) => {
     return (
-        <div className='flex items-center bg-white shadow-lg rounded-lg p-4 max-w-sm'>
+        <div
+            onClick={() => onClick(id)}
+            className='flex items-center cursor-pointer bg-white shadow-lg rounded-lg p-4 max-w-sm'>
             {/* Left Section - Image */}
             <div className='flex-shrink-0'>
                 <img
