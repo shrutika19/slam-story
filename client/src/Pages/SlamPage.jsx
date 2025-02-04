@@ -39,7 +39,7 @@ const SlamPageComp = () => {
 
     return (
 
-        <div className="min-h-screen bg-custom-bg flex flex-col">
+        <div className="min-h-screen  flex flex-col">
             <SlamHeader onFieldChange={handleFieldChange} />
             <div className="flex-grow">
                 <SlamBody onFieldChange={handleFieldChange} />
