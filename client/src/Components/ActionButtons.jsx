@@ -1,22 +1,33 @@
-// src/Components/ActionButtons.js
-import React from 'react';
+import { motion } from "framer-motion";
 
 const ActionButtons = ({ onSave, onSubmit }) => {
     return (
-        <div className="flex justify-center mt-6">
-            <button
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-center mt-6 space-x-6"
+        >
+            {/* Save Button */}
+            <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={onSave}
-                className="bg-white text-black px-4 py-2 rounded mr-4"
+                className="px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-blue-400 to-purple-400 shadow-lg hover:shadow-xl transition-all"
             >
-                Save
-            </button>
-            <button
+                💾 Save
+            </motion.button>
+
+            {/* Submit Button */}
+            <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={onSubmit}
-                className="bg-white text-black px-4 py-2 rounded mr-4"
+                className="px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-green-400 to-teal-400 shadow-lg hover:shadow-xl transition-all"
             >
-                Submit
-            </button>
-        </div>
+                🚀 Submit
+            </motion.button>
+        </motion.div>
     );
 };
 
