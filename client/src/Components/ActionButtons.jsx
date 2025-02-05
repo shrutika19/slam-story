@@ -13,7 +13,7 @@ const ActionButtons = ({ onSave, onSubmit }) => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={onSave}
-                className="px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-blue-400 to-purple-400 shadow-lg hover:shadow-xl transition-all"
+                className="mb-3 px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-blue-400 to-purple-400 shadow-lg hover:shadow-xl transition-all"
             >
                 💾 Save
             </motion.button>
@@ -23,7 +23,7 @@ const ActionButtons = ({ onSave, onSubmit }) => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={onSubmit}
-                className="px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-green-400 to-teal-400 shadow-lg hover:shadow-xl transition-all"
+                className="mb-3 px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-green-400 to-teal-400 shadow-lg hover:shadow-xl transition-all"
             >
                 🚀 Submit
             </motion.button>
