@@ -15,7 +15,7 @@ const SlamHeader = ({ onFieldChange }) => {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="w-full max-w-6xl mx-auto p-6 bg-gradient-to-r from-blue-300 to-purple-300 rounded-3xl shadow-xl"
+            className="w-full  mx-auto p-6 bg-gradient-to-r from-blue-300 to-purple-300  "
         >
             <div className="grid grid-cols-3 gap-8 items-center">
 
@@ -89,7 +89,8 @@ const SlamHeader = ({ onFieldChange }) => {
                         <img
                             src={banner}
                             alt="Right Image"
-                            className="w-full h-22 object-cover rounded-lg shadow-lg"
+                            className="w-full h-22 object-cover rounded-lg "
+                        // className="w-full h-22 object-cover rounded-lg shadow-lg"
                         />
                     </div>
 

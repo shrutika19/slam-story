@@ -17,7 +17,7 @@ const SlamBody = ({ onFieldChange }) => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="max-w-5xl mx-auto bg-white shadow-2xl rounded-3xl p-6 grid grid-cols-2 gap-6"
+            className=" mx-auto bg-white   p-6 grid grid-cols-2 gap-6"
         >
             {/* Left Section */}
             <motion.div
