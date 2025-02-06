@@ -13,12 +13,12 @@ const SlamDetailsComp = () => {
     }, [id]);
 
     return (
-        <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-br from-purple-200 to-blue-100 p-4">
+        <div className=" flex items-center justify-center bg-gradient-to-br from-purple-200 to-blue-100 p-4">
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                className="w-full max-w-5xl h-auto bg-white shadow-2xl rounded-3xl p-6 relative grid grid-rows-[auto,1fr,auto] gap-6"
+                className="w-full max-w-5xl h-auto bg-white shadow-2xl rounded-3xl p-3 relative grid grid-rows-[auto,1fr,auto] gap-6"
             >
                 {/* Header Section */}
                 <div className="grid grid-cols-2 items-center p-4">
@@ -53,7 +53,7 @@ const SlamDetailsComp = () => {
                     initial={{ y: 50, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.5 }}
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-xl shadow-lg text-white"
+                    className="bg-gradient-to-r from-blue-500 to-purple-500 p-4 rounded-xl shadow-lg text-white"
                 >
                     <h2 className="text-2xl font-semibold text-center">🌸 My Favorites</h2>
                     <div className="grid grid-cols-2 gap-3 mt-2">
