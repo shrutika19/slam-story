@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 const slamSchema = new mongoose.Schema({
     fullname: { type: String, required: true },
@@ -15,6 +15,7 @@ const slamSchema = new mongoose.Schema({
     funfact: { type: String, required: true },
     memory: { type: String, required: true },
     message: { type: String, required: true },
+    image: { type: String, required: true },
 });
 
-module.exports = mongoose.model('Slam', slamSchema)
+module.exports = mongoose.model("Slam", slamSchema);
