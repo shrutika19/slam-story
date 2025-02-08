@@ -21,6 +21,7 @@ const SlamPageComp = () => {
         funfact: "",
         memory: "",
         message: "",
+        image: null, // Added image field
     });
 
     //update state for inputs

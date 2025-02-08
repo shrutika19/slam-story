@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import kids from '../assets/kids.png';
 import banner from '../assets/banner.png';
 import { motion } from "framer-motion";
 
 
 const SlamHeader = ({ onFieldChange }) => {
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [preview, setPreview] = useState(null);
+
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
-        console.log(file);
+        if (file) {
+            setSelectedFile(file);
+            setPreview(URL.createObjectURL(file)); // Generate image preview URL
+            onFieldChange("image", file); // Pass file to parent component
+        }
     };
 
     return (
@@ -102,13 +109,22 @@ const SlamHeader = ({ onFieldChange }) => {
                     >
                         <label
                             htmlFor="upload-photo"
-                            className="w-full h-48 flex flex-col items-center justify-center border-2 border-dashed border-indigo-400 rounded-lg cursor-pointer bg-indigo-100 hover:bg-indigo-200 shadow-lg"
+                            className="w-full h-48 flex flex-col items-center justify-center border-2 border-dashed border-indigo-400 rounded-lg cursor-pointer bg-indigo-100 hover:bg-indigo-200 shadow-lg relative overflow-hidden"
                         >
-                            <span className="text-indigo-700 font-semibold">📸 Upload Photo</span>
+                            {preview ? (
+                                <img
+                                    src={preview}
+                                    alt="Uploaded Preview"
+                                    className="w-full h-full object-cover rounded-lg"
+                                />
+                            ) : (
+                                <span className="text-indigo-700 font-semibold">📸 Upload Photo</span>
+                            )}
                             <input
                                 id="upload-photo"
                                 type="file"
                                 className="hidden"
+                                accept="image/*"
                                 onChange={handleFileUpload}
                             />
                         </label>
