@@ -141,47 +141,52 @@ export const SlamProvider = ({ children }) => {
 
     const postSlamData = async (data) => {
         console.log("postSlamData", data);
+
         try {
-            const token = localStorage.getItem('token'); // Retrieve token from local storage
-            console.log("tokane", token)
+            const token = localStorage.getItem("token"); // Retrieve token
+            console.log("Token:", token);
+
+            // Create FormData object
+            const formData = new FormData();
+            formData.append("fullname", data.fullname);
+            formData.append("contact", data.contact);
+            formData.append("dateOfBirth", data.dateOfBirth);
+            formData.append("favColor", data.favColor);
+            formData.append("favFood", data.favFood);
+            formData.append("favSong", data.favSong);
+            formData.append("favMovie", data.favMovie);
+            formData.append("favWebseries", data.favWebseries);
+            formData.append("favCafe", data.favCafe);
+            formData.append("favHobby", data.favHobby);
+            formData.append("funfact", data.funfact);
+            formData.append("memory", data.memory);
+            formData.append("message", data.message);
+
+            // Append image file if available
+            if (data.image) {
+                formData.append("image", data.image);
+            }
 
             const response = await fetch(`${SlamStoryApi}/api/auth/update-slam`, {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`, // Attach the token for authentication
+                    "Authorization": `Bearer ${token}`, // Only include Authorization header, FormData handles content-type
                 },
-                body: JSON.stringify({
-                    fullname: data.fullname,
-                    contact: data.contact,
-                    dateOfBirth: data.dateOfBirth,
-                    favColor: data.favColor,
-                    favFood: data.favFood,
-                    favSong: data.favSong,
-                    favMovie: data.favMovie,
-                    favWebseries: data.favWebseries,
-                    favCafe: data.favCafe,
-                    favHobby: data.favHobby,
-                    funfact: data.funfact,
-                    memory: data.memory,
-                    message: data.message
-                }),
+                body: formData, // Send FormData
             });
 
             const responseData = await response.json();
 
             if (response.ok) {
-                console.log('Slam created successfully:', responseData);
+                console.log("Slam created successfully:", responseData);
                 return responseData;
-                // Optionally update local state with the new profile info or notify the user
             } else {
-                console.log('Slam update failed:', responseData.message);
+                console.log("Slam update failed:", responseData.message);
             }
         } catch (error) {
-            console.error('Error during profile update:', error);
-            console.log('An error occurred. Please try again later.');
+            console.error("Error during profile update:", error);
         }
-    }
+    };
 
     const getSlamDataById = async (id) => {
         console.log("getSlamDataById called with id:", id);
