@@ -43,7 +43,7 @@ const DashboardComp = () => {
                                 whileTap={{ scale: 0.95 }}
                             >
                                 <CustomCard
-                                    image={slam.image}
+                                    image={`${import.meta.env.VITE_BACKEND_URL}${slam.image}`}
                                     name={slam.fullname}
                                     contact={slam.contact}
                                     birthdate={
