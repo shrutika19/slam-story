@@ -44,9 +44,7 @@ const SlamDetailsComp = () => {
                         transition={{ yoyo: Infinity, duration: 1 }}
                         className="flex justify-end"
                     >
-                        {/* image={`${import.meta.env.VITE_BACKEND_URL}${slam.image}`} */}
-                        {/* <PolaroidPhoto image={slamDataById.data?.image} /> */}
-                        <PolaroidPhoto image={`${import.meta.env.VITE_BACKEND_URL}${slamDataById.data?.image}`} />
+                        <PolaroidPhoto image={slamDataById.data?.image} />
                     </motion.div>
                 </div>
 
