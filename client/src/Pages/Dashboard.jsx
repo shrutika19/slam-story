@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../Components/Navbar";
 import CustomCard from "../Components/CustomCard";
@@ -7,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 const DashboardComp = () => {
     const { getAllSlamsData, allSlams } = useSlamContext();
+    const [searchQuery, setSearchQuery] = useState(""); // Store search input
+    const [isSearchActive, setIsSearchActive] = useState(false); // Control search bar visibility
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,12 +25,38 @@ const DashboardComp = () => {
         navigate(`/slam/${id}`);
     };
 
+    // Function to handle search query update
+    const handleSearch = (query) => {
+        setSearchQuery(query);
+    };
+
+    // Toggle search bar visibility
+    const toggleSearch = () => {
+        setIsSearchActive(!isSearchActive);
+    };
+
+    // Filter slams based on searchQuery
+    const filteredSlams = allSlams.filter((slam) =>
+        slam.fullname.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+
     return (
         <>
-            <Navbar />
+            <Navbar onSearch={handleSearch} onToggleSearch={toggleSearch} isSearchActive={isSearchActive} />
+            {/* Search Bar */}
+            {isSearchActive && (
+                <div className="flex justify-center p-4">
+                    <input
+                        type="text"
+                        placeholder="Search by name..."
+                        value={searchQuery}
+                        onChange={(e) => handleSearch(e.target.value)}
+                        className="border border-gray-400 px-4 py-2 rounded-md w-1/2"
+                    />
+                </div>
+            )}
             <div className="max-w-7xl mx-auto p-6">
-
-
                 {/* Slam Cards Grid */}
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -35,8 +64,8 @@ const DashboardComp = () => {
                     transition={{ duration: 0.7 }}
                     className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
                 >
-                    {allSlams && allSlams.length > 0 ? (
-                        allSlams.map((slam) => (
+                    {filteredSlams.length > 0 ? (
+                        filteredSlams.map((slam) => (
                             <motion.div
                                 key={slam._id}
                                 whileHover={{ scale: 1.05 }}
