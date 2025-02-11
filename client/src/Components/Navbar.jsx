@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { FaSearch, FaCommentDots, FaChevronDown } from 'react-icons/fa';
 
 
-const Navbar = () => {
+const Navbar = ({ onSearch, onToggleSearch, isSearchActive }) => {
     const [loggedInUser, setLoggedInUser] = useState(null);
     const navigate = useNavigate();
 
     const fetchLoggedInUser = () => {
         auth.onAuthStateChanged((user) => {
             if (user) {
+                s
                 console.log("Current user:", user);
                 setLoggedInUser(user); // Set the logged-in user state
             } else {
@@ -62,10 +63,8 @@ const Navbar = () => {
                     {/* Icons - Search, Message, Profile, Down Arrow */}
 
                     {/* Search Icon with Tooltip */}
-                    <div className="group relative">
-                        <FaSearch
-                            className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
-                        />
+                    <div className="group relative" onClick={onToggleSearch}>
+                        <FaSearch className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent" />
                         <div className="absolute top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black text-white text-xs rounded-md py-1 px-2 pointer-events-none">
                             Search
                         </div>
@@ -113,34 +112,6 @@ const Navbar = () => {
                         </div>
                     </div>
                 </div>
-
-
-
-                {/* <div className="flex items-center space-x-4">
-                    <FaSearch
-                        className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
-                    />
-                    <FaCommentDots
-                        className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
-                    />
-                    {loggedInUser ? (
-                        <img
-                            src={loggedInUser.photoURL}
-                            alt="Profile"
-                            className="h-6 w-6 rounded-full border-2 border-gray-300 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400"
-                            onClick={handleProfileClick}
-                        />
-                    ) : (
-                        <img
-                            src="path-to-default-profile-picture.jpg"
-                            alt="Default Profile"
-                            className="h-6 w-6 rounded-full border-2 border-gray-300 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400"
-                        />
-                    )}
-                    <FaChevronDown
-                        className="h-5 w-5 text-gray-600 cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-gray-400 hover:bg-transparent"
-                    />
-                </div> */}
             </div>
         </nav>
     );
